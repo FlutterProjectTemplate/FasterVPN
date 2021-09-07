@@ -12,9 +12,9 @@ import 'package:package_info/package_info.dart';
 
 class NizVpn {
   ///Channel to native
-  static final String _eventChannelVpnStage = "id.nizwar.nvpn/vpnstage";
-  static final String _eventChannelVpnStatus = "id.nizwar.nvpn/vpnstatus";
-  static final String _methodChannelVpnControl = "id.nizwar.nvpn/vpncontrol";
+  static final String _eventChannelVpnStage = "com.glacio.FasterVPN/vpnstage";
+  static final String _eventChannelVpnStatus = "com.glacio.FasterVPN/vpnstatus";
+  static final String _methodChannelVpnControl = "com.glacio.FasterVPN/vpncontrol";
 
   ///Snapshot of VPN Connection Stage
   static Stream<String> vpnStageSnapshot() => EventChannel(_eventChannelVpnStage).receiveBroadcastStream().cast();
@@ -23,7 +23,7 @@ class NizVpn {
   static Stream<VpnStatus> vpnStatusSnapshot() => EventChannel(_eventChannelVpnStatus).receiveBroadcastStream().map((event) => VpnStatus.fromJson(jsonDecode(event))).cast();
 
   ///Start VPN easily
-  static Future<void> startVpn(VpnConfig vpnConfig, {DnsConfig dns, List<String> bypassPackages}) async {
+  static Future<void> startVpn(VpnConfig vpnConfig, {required DnsConfig dns, required List<String> bypassPackages}) async {
     final package = await PackageInfo.fromPlatform();
     if (bypassPackages == null) {
       bypassPackages = [package.packageName];
@@ -35,10 +35,10 @@ class NizVpn {
       {
         "config": vpnConfig.config,
         "country": vpnConfig.name,
-        "username": vpnConfig.username ?? "",
-        "password": vpnConfig.password ?? "",
-        "dns1": dns?.dns1,
-        "dns2": dns?.dns2,
+        "username": vpnConfig.username,
+        "password": vpnConfig.password ,
+        "dns1": dns.dns1,
+        "dns2": dns.dns2,
         "bypass_packages": bypassPackages,
       },
     );
@@ -54,7 +54,7 @@ class NizVpn {
   static Future<void> refreshStage() => MethodChannel(_methodChannelVpnControl).invokeMethod("refresh");
 
   ///Get latest stage
-  static Future<String> stage() => MethodChannel(_methodChannelVpnControl).invokeMethod("stage");
+  static Future<dynamic> stage() => MethodChannel(_methodChannelVpnControl).invokeMethod("stage");
 
   ///Check if vpn is connected
   static Future<bool> isConnected() => stage().then((value) => value.toLowerCase() == "connected");

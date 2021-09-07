@@ -1,13 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="id.nizwar.open_nizvpn">
+    package="com.glacio.FasterVPN">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Open NIZVPN"
+        android:label="FasterVPN"
         android:icon="@mipmap/ic_launcher"
         tools:ignore="AllowBackup">
         <activity
