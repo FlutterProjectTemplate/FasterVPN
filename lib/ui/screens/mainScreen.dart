@@ -45,6 +45,12 @@ class _MainScreenState extends State<MainScreen> {
     _listVpn.add(VpnConfig(
         config: await rootBundle.loadString("assets/vpn/us.ovpn"),
         name: "United State"));
+    _listVpn.add(VpnConfig(
+        config: await rootBundle.loadString("assets/vpn/vietnam.ovpn"),
+        name: "VietNam"));
+    _listVpn.add(VpnConfig(
+        config: await rootBundle.loadString("assets/vpn/korean.ovpn"),
+        name: "Korean"));
     if (mounted)
       setState(() {
         _selectedVpn = _listVpn.first;
